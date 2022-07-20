@@ -12,6 +12,7 @@ const Home = () => {
   const [page, setPage] = useState<number>(1);
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   let interval: NodeJS.Timer;
+  const [loading, setloading] = useState<boolean>(false);
 
   const handelPage = () => {
     setPage((p: any) => p + 1);
@@ -19,6 +20,7 @@ const Home = () => {
 
   const fetchData = async () => {
     try {
+      setloading(true);
       const res = await axios.get(
         `https://hn.algolia.com/api/v1/search_by_date?query=story&page=${page}`
       );
@@ -26,6 +28,8 @@ const Home = () => {
       setData([...data, ...res.data.hits]);
     } catch (e) {
       console.log("error");
+    } finally {
+      setloading(false);
     }
   };
 
@@ -35,33 +39,46 @@ const Home = () => {
   }, [page]);
 
   useEffect(() => {
-    interval = setInterval(handelPage, 10000);
+    interval = setInterval(() => handelPage(), 10000);
     return () => clearInterval(interval);
+  }, []);
+
+  const handleScroll = () => {
+    if (
+      window.scrollY + window.innerHeight >=
+      document.documentElement.scrollHeight
+    ) {
+      !loading && handelPage();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <View testID="home" style={ScreenStyles.screen}>
-      <View style={ScreenStyles.item1}>
-        <Text style={ScreenStyles.itemText1}>Title</Text>
-        <Text style={ScreenStyles.itemText2}>URL</Text>
-        {/* <Text style={ScreenStyles.itemText2}>Created_At</Text> */}
-
-        <Text style={ScreenStyles.itemText1}>Author</Text>
-      </View>
       <FlatList
+        horizontal={false}
         testID="home-list"
         data={data}
-        renderItem={({ item }) => {
+        // keyExractor={(item:any)=>item.objectID}
+        renderItem={({ item, index }) => {
           return (
             <TouchableOpacity
+              testID={`test-${item.index}`}
               style={ScreenStyles.item}
+              key={item.objectID}
               onPress={() => {
-                navigation.navigate("Back", {
+                navigation.navigate("RAW JSON", {
                   item: JSON.stringify(item, null, 4),
                 });
               }}
             >
               <Text style={ScreenStyles.itemText1}>
+                <Text style={ScreenStyles.title}>Title: </Text>
                 {item.title ? (
                   item.title
                 ) : item.story_title ? (
@@ -70,7 +87,8 @@ const Home = () => {
                   <i>data not found</i>
                 )}
               </Text>
-              <Text style={ScreenStyles.itemText3}>
+              <Text style={ScreenStyles.itemText1}>
+                <Text style={ScreenStyles.title}>URL: </Text>
                 {item.url ? (
                   <a href={item.url}>{item.url}</a>
                 ) : item.story_url ? (
@@ -79,14 +97,20 @@ const Home = () => {
                   <i>data not found</i>
                 )}
               </Text>
-              {/* <Text style={ScreenStyles.itemText2}>{item.created_at}</Text> */}
+              <Text style={ScreenStyles.itemText1}>
+                <Text style={ScreenStyles.title}>Created_at: </Text>
+                {item.created_at}
+              </Text>
 
-              <Text style={ScreenStyles.itemText1}>{item.author}</Text>
+              <Text style={ScreenStyles.itemText1}>
+                <Text style={ScreenStyles.title}>Author: </Text>
+                {item.author}
+              </Text>
             </TouchableOpacity>
           );
         }}
         onEndReachedThreshold={0.5}
-        onEndReached={handelPage}
+        // onEndReached={handelPage}
         // ListFooterComponent={() => {
         //   if (loading) {
         //     return <ActivityIndicator />;

@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`home component test take snap shot 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "white",
+      "marginTop": 20,
+      "paddingTop": 20,
+    }
+  }
+  testID="home"
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "color": "lightblue",
+        "display": "flex",
+        "flexDirection": "row",
+        "fontSize": 22,
+        "justifyContent": "center",
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "flex": 1,
+          "height": 150,
+          "overflow": "hidden",
+          "padding": 5,
+          "width": "20%",
+        }
+      }
+    >
+      Title
+    </Text>
+    <Text
+      style={
+        Object {
+          "flex": 1,
+          "flexWrap": "wrap",
+          "height": 150,
+          "padding": 5,
+          "width": "30%",
+        }
+      }
+    >
+      URL
+    </Text>
+    <Text
+      style={
+        Object {
+          "flex": 1,
+          "flexWrap": "wrap",
+          "height": 150,
+          "padding": 5,
+          "width": "30%",
+        }
+      }
+    >
+      Created_At
+    </Text>
+    <Text
+      style={
+        Object {
+          "flex": 1,
+          "height": 150,
+          "overflow": "hidden",
+          "padding": 5,
+          "width": "20%",
+        }
+      }
+    >
+      Author
+    </Text>
+  </View>
+  <RCTScrollView
+    data={Array []}
+    disableVirtualization={false}
+    getItem={[Function]}
+    getItemCount={[Function]}
+    horizontal={false}
+    initialNumToRender={10}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={10}
+    onContentSizeChange={[Function]}
+    onEndReached={[Function]}
+    onEndReachedThreshold={0.5}
+    onLayout={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    removeClippedSubviews={false}
+    renderItem={[Function]}
+    scrollEventThrottle={50}
+    stickyHeaderIndices={Array []}
+    testID="home-list"
+    updateCellsBatchingPeriod={50}
+    viewabilityConfigCallbackPairs={Array []}
+    windowSize={21}
+  >
+    <View />
+  </RCTScrollView>
+</View>
+`;

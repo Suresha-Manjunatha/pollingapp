@@ -14,7 +14,7 @@ const App = () => {
     <NavigationContainer>
       <Navigator>
         <Screen name="Home" component={Home} options={option} />
-        <Screen name="Back" component={Details} />
+        <Screen name="RAW JSON" component={Details} />
       </Navigator>
     </NavigationContainer>
   );

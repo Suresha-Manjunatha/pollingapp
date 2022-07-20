@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`home component test take snap shot 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "white",
+      "marginTop": 20,
+      "paddingTop": 20,
+    }
+  }
+  testID="details"
+>
+  <Text>
+     
+    
+  </Text>
+</View>
+`;
